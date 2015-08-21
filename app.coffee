@@ -58,7 +58,7 @@ cleaner =
     else
       this.move 0
   cleanOffice: () ->
-    console.log this.office + ' - Start cleaning this office, bitch!'
+    console.log this.office + ' - Start cleaning this office, McClean!'
     currentOffice = offices[this.office]
     if currentOffice.trash is true
       this.cleanTrash()
