@@ -59,13 +59,14 @@ cleaner =
       this.move 0
   cleanOffice: () ->
     console.log this.office + ' - Start cleaning this office, bitch!'
-    if offices[this.office].trash is true
+    currentOffice = offices[this.office]
+    if currentOffice.trash is true
       this.cleanTrash()
-    if offices[this.office].window is true
+    if currentOffice.window is true
       this.cleanWindow()
-    if offices[this.office].floor is true
+    if currentOffice.floor is true
       this.cleanFloor()
-    if offices[this.office].desk is true
+    if currentOffice.desk is true
       this.cleanDesk()
   cleanLevel: () ->
     startOffice = this.office
