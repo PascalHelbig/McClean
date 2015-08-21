@@ -1,3 +1,5 @@
+# Fork me on https://github.com/PascalHelbig/McClean
+
 rand = () ->
   parseInt(Math.random()*2) is 1
 
