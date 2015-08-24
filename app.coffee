@@ -1,41 +1,14 @@
 # Fork me on https://github.com/PascalHelbig/McClean
-
 rand = () ->
   parseInt(Math.random()*2) is 1
-
-offices = [
-  {
+offices = []
+for i in [0..5]
+  offices.push {
     trash: rand()
     window: rand()
     floor: rand()
     desk: rand()
-  },{
-    trash: rand()
-    window: rand()
-    floor: rand()
-    desk: rand()
-  },{
-    trash: rand()
-    window: rand()
-    floor: rand()
-    desk: rand()
-  },{
-    trash: rand()
-    window: rand()
-    floor: rand()
-    desk: rand()
-  },{
-    trash: rand()
-    window: rand()
-    floor: rand()
-    desk: rand()
-  },{
-    trash: rand()
-    window: rand()
-    floor: rand()
-    desk: rand()
-  },
-]
+  }
 
 cleaner =
   office: 0
