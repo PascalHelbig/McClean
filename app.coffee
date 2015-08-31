@@ -1,6 +1,11 @@
 # Fork me on https://github.com/PascalHelbig/McClean
 rand = () ->
   parseInt(Math.random()*2) is 1
+
+sleep = (ms) ->
+  start = new Date().getTime()
+  continue while new Date().getTime() - start < ms
+
 offices = []
 for i in [0..5]
   offices.push {
@@ -11,46 +16,49 @@ for i in [0..5]
   }
 
 cleaner =
-  office: 0
-  cleanTrash: () ->
-    offices[cleaner.office].trash = false
-    console.log this.office + ' - cleaned trash'
-  cleanWindow: () ->
-    offices[cleaner.office].window = false
-    console.log this.office + ' - cleaned window'
-  cleanFloor: () ->
-    offices[cleaner.office].floor = false
-    console.log this.office + ' - cleaned floor'
-  cleanDesk: () ->
-    offices[cleaner.office].desk = false
-    console.log this.office + ' - cleaned desk'
+  officeNr: 0
+  office: null
+  intention:
+    trash: false
+    window: false
+    floor: false
+    desk: false
+  see: () ->
+    this.office = offices[this.officeNr]
+  desire: () ->
+    d = []
+    for key, value of this.intention
+      if this.office[key] != value
+        d.push key
+    return d
+  execute: () ->
+    this.see()
+    desire = this.desire()
+    loop
+      break if desire.length is 0
+      intention = desire.pop()
+      this.clean intention
+    this.moveNext()
+
+  clean: (what) ->
+    sleep 400
+    offices[cleaner.officeNr][what] = false
+    console.log this.officeNr + ' - cleaned ' + what
   move: (next) ->
-    console.log this.office + ' - moved to ' + next
-    this.office = next
+    sleep 200
+    console.log this.officeNr + ' - moved to ' + next
+    this.officeNr = next
   moveNext: () ->
-    if this.office < offices.length - 1
-      this.move this.office + 1
+    if this.officeNr < offices.length - 1
+      this.move this.officeNr + 1
     else
       this.move 0
-  cleanOffice: () ->
-    console.log this.office + ' - Start cleaning this office, McClean!'
-    currentOffice = offices[this.office]
-    if currentOffice.trash is true
-      this.cleanTrash()
-    if currentOffice.window is true
-      this.cleanWindow()
-    if currentOffice.floor is true
-      this.cleanFloor()
-    if currentOffice.desk is true
-      this.cleanDesk()
   cleanLevel: () ->
-    startOffice = this.office
+    startOffice = this.officeNr
     loop
-      this.cleanOffice()
-      this.moveNext()
-      break if startOffice is this.office
+      this.execute()
+      break if startOffice is this.officeNr
     console.log 'finished'
-
 
 console.log offices
 cleaner.cleanLevel()
